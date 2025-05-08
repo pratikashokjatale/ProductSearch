@@ -1,0 +1,38 @@
+package com.Backend.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.Backend.Model.Product;
+import com.Backend.Repository.ProductRepository;
+
+@Service
+public class ProductService {
+	
+	@Autowired
+	ProductRepository pr;
+
+	public List<Product> findByNameContainingIgnoreCaseOrBrandContainingIgnoreCase(String search, String search2) {
+		// TODO Auto-generated method stub
+		return pr.findByNameContainingIgnoreCaseOrBrandContainingIgnoreCase(search,search2);
+	}
+
+	public List<Product> getalldata() {
+		// TODO Auto-generated method stub
+		return pr.findAll();
+	}
+
+	
+
+	public Optional<Product> findUsingId(UUID id) {
+		// TODO Auto-generated method stub
+		return pr.findById(id);
+	}
+	
+
+}

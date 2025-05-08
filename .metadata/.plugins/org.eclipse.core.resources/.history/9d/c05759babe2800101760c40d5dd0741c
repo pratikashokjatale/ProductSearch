@@ -1,0 +1,23 @@
+package com.Backend.Service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Backend.Model.Product;
+import com.Backend.Repository.ProductRepository;
+
+@Service
+public class ProductService {
+	
+	@Autowired
+	ProductRepository pr;
+
+	public List<Product> findByNameContainingIgnoreCaseOrBrandContainingIgnoreCase(String search, String search2) {
+		// TODO Auto-generated method stub
+		return pr.findByNameContainingIgnoreCaseOrBrandContainingIgnoreCase(search,search2);
+	}
+	
+
+}

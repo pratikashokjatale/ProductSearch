@@ -1,0 +1,47 @@
+package com.Backend.Controller;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.Backend.Model.Product;
+import com.Backend.Service.ProductService;
+
+@RestController
+@RequestMapping("/products")
+@CrossOrigin("http://localhost:5173/")	
+public class ProductController {
+
+    @Autowired
+    private ProductService ps;
+
+    @GetMapping("/searchs")
+    public List<Product> getAllProducts(@RequestBody(required = false) String search) {
+        if (search != null && !search.isEmpty()) {
+            return ps.findByNameContainingIgnoreCaseOrBrandContainingIgnoreCase(search, search);
+        }
+        return ps.getalldata();
+    }
+
+    
+    @PostMapping("/data")
+    public void saveData(@RequestBody Product p) {
+    	ps.saveData(p);
+    }
+    @GetMapping("/{id}")
+    public Optional<Product> getProductById(@PathVariable UUID id) {
+        return ps.findUsingId(id);
+                
+    }
+   
+}
